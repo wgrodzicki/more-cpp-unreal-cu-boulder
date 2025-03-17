@@ -5,6 +5,12 @@
 
 #include "CharacterPawn.h"
 
+#include "ABearSpawner.h"
+
+#include "BearDestroyer.h"
+
+#include "Kismet/GameplayStatics.h"
+
 bool bIsJumping = false;
 bool bIsFalling = false;
 float StartingJumpHeight = 0.0f;
@@ -86,20 +92,30 @@ void ACharacterPlayerController::SetupInputComponent()
 
     check(InputComponent != nullptr);
     
-    InputComponent->BindAction("DestroyCharacter",
-        EInputEvent::IE_Pressed, this,
-        &ACharacterPlayerController::DestroyCharacterPawn);
+    // Uncomment to enable specific input actions
 
-    InputComponent->BindAction("Jump",
+    //InputComponent->BindAction("DestroyCharacter",
+    //    EInputEvent::IE_Pressed, this,
+    //    &ACharacterPlayerController::DestroyCharacterPawn);
+
+    //InputComponent->BindAction("Jump",
+    //    EInputEvent::IE_Pressed, this,
+    //    &ACharacterPlayerController::Jump);
+
+    InputComponent->BindAction("SpawnTeddyBear",
         EInputEvent::IE_Pressed, this,
-        &ACharacterPlayerController::Jump);
+        &ACharacterPlayerController::SpawnTeddyBear);
+
+    InputComponent->BindAction("DestroyTeddyBear",
+        EInputEvent::IE_Pressed, this,
+        &ACharacterPlayerController::DestroyTeddyBear);
 }
 
 void ACharacterPlayerController::DestroyCharacterPawn()
 {
     ACharacterPawn* characterPawn = (ACharacterPawn*)GetPawn();
     check(characterPawn != nullptr);
-    //characterPawn->Destroy();
+    characterPawn->Destroy();
 }
 
 void ACharacterPlayerController::Jump()
@@ -109,4 +125,32 @@ void ACharacterPlayerController::Jump()
     StartingJumpHeight = characterLocation.Z;
     CurrentJumpHeight = StartingJumpHeight;
     bIsJumping = true;
+}
+
+void ACharacterPlayerController::SpawnTeddyBear()
+{
+    TArray<AActor*> ActorsToFind;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AABearSpawner::StaticClass(), ActorsToFind);
+
+    check(ActorsToFind[0] != nullptr);
+
+    AABearSpawner* bearSpawner = (AABearSpawner*)ActorsToFind[0];
+
+    check(bearSpawner != nullptr);
+
+    bearSpawner->SpawnTeddyBear();
+}
+
+void ACharacterPlayerController::DestroyTeddyBear()
+{
+    TArray<AActor*> ActorsToFind;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABearDestroyer::StaticClass(), ActorsToFind);
+
+    check(ActorsToFind[0] != nullptr);
+
+    ABearDestroyer* bearDestroyer = (ABearDestroyer*)ActorsToFind[0];
+
+    check(bearDestroyer != nullptr);
+
+    bearDestroyer->DestroyDestructible();
 }

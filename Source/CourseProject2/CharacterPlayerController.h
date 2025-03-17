@@ -23,4 +23,6 @@ public:
     virtual void SetupInputComponent() override;
     void DestroyCharacterPawn();
     void Jump();
+    void SpawnTeddyBear();
+    void DestroyTeddyBear();
 };

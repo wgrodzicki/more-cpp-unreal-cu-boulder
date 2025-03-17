@@ -33,6 +33,9 @@ public:
 	*/
 	AABearSpawner();
 
+    UFUNCTION()
+    void SpawnTeddyBear();
+
 protected:
     UPROPERTY(EditAnywhere,
         meta = (MetaClass = "TeddyBear"),
@@ -48,9 +51,6 @@ protected:
         meta = (MetaClass = "TeddyBear"),
         Category = TeddyBearBlueprints)
     TSubclassOf<AATeddy> UTeddyBear3;
-
-    UFUNCTION()
-    void SpawnTeddyBear();
 
 	/**
 	 * Called when the game starts or when spawned

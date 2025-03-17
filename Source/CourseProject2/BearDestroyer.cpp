@@ -22,7 +22,9 @@ void ABearDestroyer::BeginPlay()
 {
 	Super::BeginPlay();
 	
-    StartDestroyTimer();
+    // Uncomment for auto-destroying
+
+    //StartDestroyTimer();
 }
 
 /**
@@ -46,7 +48,9 @@ void ABearDestroyer::DestroyDestructible()
         UE_LOG(LogTemp, Warning, TEXT("Bear destroyed!"));
     }
     
-    StartDestroyTimer();
+    // Uncomment for auto-destroying
+
+    //StartDestroyTimer();
 }
 
 void ABearDestroyer::StartDestroyTimer()

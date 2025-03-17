@@ -24,9 +24,12 @@ void AATeddy::BeginPlay()
 	
     if (bHasLifespan)
     {
-        SetLifeSpan(10);
+        //SetLifeSpan(10);
     }
-    StartJumpTimer();
+
+    // Uncomment for auto-jumping
+
+    //StartJumpTimer();
 }
 
 /**
@@ -46,7 +49,7 @@ void AATeddy::Jump()
     JumpLocation.Z = FMath::RandRange(MinJumpZ, MaxJumpZ);
     SetActorLocation(JumpLocation);
     SetActorScale3D(FVector(GetActorScale().X * ScaleMod, GetActorScale().Y * ScaleMod, GetActorScale().Z * ScaleMod));
-    StartJumpTimer();
+    //StartJumpTimer();
 }
 
 void AATeddy::StartJumpTimer()

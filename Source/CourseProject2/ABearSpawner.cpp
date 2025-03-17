@@ -20,7 +20,9 @@ void AABearSpawner::BeginPlay()
 {
 	Super::BeginPlay();
 	
-    StartSpawnTimer();
+    // Uncomment for auto-spawning
+
+    //StartSpawnTimer();
 }
 
 /**
@@ -63,7 +65,10 @@ void AABearSpawner::SpawnTeddyBear()
     SpawnLocation.SetComponentForAxis(EAxis::Z, LocationZ);
 
     GetWorld()->SpawnActor<AATeddy>(BearToSpawn, SpawnLocation, FRotator::ZeroRotator);
-    StartSpawnTimer();
+
+    // Uncomment for auto-spawning
+
+    //StartSpawnTimer();
 }
 
 void AABearSpawner::StartSpawnTimer()
